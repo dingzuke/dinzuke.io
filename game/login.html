@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>飞机大作战登录</title>
+
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+</style>
+
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type=text/javascript src="js/jquery.cookie.js"></script> 
+<script type="text/javascript" src="js/login.js"></script>
+<script src="js/bmob-min.js"></script>
+
+</head>
+
+<body>
+
+
+	<div class="demo">
+		<nav class="main_nav">
+			<ul>
+				<li><a class="cd-signin" href="#0">登录</a></li>
+				<li><a class="cd-signup" href="#0">注册</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+	<div class="cd-user-modal"> 
+		<div class="cd-user-modal-container">
+			<ul class="cd-switcher">
+				<li><a href="#0">用户登录</a></li>
+				<li><a href="#0">注册新用户</a></li>
+			</ul>
+
+			<div id="cd-login"> <!-- 登录表单 -->
+				<div class="cd-form">
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signin-username">用户名</label>
+						<input class="full-width has-padding has-border" id="signin-username" type="text" placeholder="输入用户名">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signin-password">密码</label>
+						<input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="输入密码">
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="remember-me" checked>
+						<label for="remember-me">记住登录状态</label>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width2 loginBt"  type="submit" value="登 录">
+					</p>
+				</div>
+			</div>
+
+			<div id="cd-signup"> <!-- 注册表单 -->
+				<div class="cd-form">
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signup-username">用户名</label>
+						<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="输入用户名">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-email" for="signup-email">邮箱</label>
+						<input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="输入mail">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signup-password">密码</label>
+						<input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="输入密码">
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width2 loginUpBt" type="submit" value="注册新用户">
+					</p>
+				</div>
+			</div>
+
+			<a href="#0" class="cd-close-form">关闭</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+      // 登录
+  $('.loginBt').on('click',function(){
+  	Bmob.initialize("a5dd39738049405356af8d49edc68db8", "da77db7c3cf743337e2b388d640c7104");
+	  var user = new Bmob.User();
+  	Bmob.User.logIn($('#signin-username')[0].value, $('#signin-password')[0].value, {
+	  success: function(user) {
+	  	$.cookie('game_user', $('#signin-username')[0].value, { expires: 7, path: '/' })
+	  	$.cookie('game_user')
+      window.location.href='./index.html'
+	  },
+	  error: function(user, error) {
+	    alert("登录失败:"+error.message)
+	  }
+	});
+  })
+  // 注册
+  $('.loginUpBt').on('click',function(){
+  	Bmob.initialize("a5dd39738049405356af8d49edc68db8", "da77db7c3cf743337e2b388d640c7104");
+	  var user = new Bmob.User();
+  	// 邮箱验证
+  	var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	 if (filter.test($('#signup-email')[0].value)) {
+	 	user.set("username", $('#signup-username')[0].value);
+    user.set("email", $('#signup-email')[0].value);
+    user.set("password", $('#signup-password')[0].value);
+    user.signUp(null, {
+      success: function(user) {
+        alert('恭喜您！注册成功，开始游戏吧')
+        // 设置cookie 7天失效
+        $.cookie('game_user', $('#signup-username')[0].value, { expires: 7, path: '/' })
+        window.location.href='./index.html'
+      },
+      error: function(user, error) {
+        alert("注册失败: " + error.code + " " + error.message);
+      }
+    });
+	 }
+  })
+	</script>
+</body>
+</html>
