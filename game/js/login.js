@@ -59,43 +59,5 @@ jQuery(document).ready(function($){
 		$tab_login.removeClass('selected');
 		$tab_signup.addClass('selected');
 	}
- //  // 登录
- //  $('.loginBt').on('click',function(){
- //  	Bmob.initialize("a5dd39738049405356af8d49edc68db8", "da77db7c3cf743337e2b388d640c7104");
-	//   var user = new Bmob.User();
- //  	Bmob.User.logIn($('#signin-username')[0].value, $('#signin-password')[0].value, {
-	//   success: function(user) {
-	//   	$.cookie('game_user', $('#signin-username')[0].value, { expires: 7, path: '/' })
-	//   	$.cookie('game_user')
-	//   	debugger
- //      setInterval(window.location.href='./index.html',1)
-	//   },
-	//   error: function(user, error) {
-	//     alert("登录失败:"+error.message)
-	//   }
-	// });
- //  })
- //  // 注册
- //  $('.loginUpBt').on('click',function(){
- //  	Bmob.initialize("a5dd39738049405356af8d49edc68db8", "da77db7c3cf743337e2b388d640c7104");
-	//   var user = new Bmob.User();
- //  	// 邮箱验证
- //  	var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	//  if (filter.test($('#signup-email')[0].value)) {
-	//  	user.set("username", $('#signup-username')[0].value);
- //    user.set("email", $('#signup-email')[0].value);
- //    user.set("password", $('#signup-password')[0].value);
- //    user.signUp(null, {
- //      success: function(user) {
- //        alert('恭喜您！注册成功，开始游戏吧')
- //        // 设置cookie 7天失效
- //        $.cookie('game_user', $('#signup-username')[0].value, { expires: 7, path: '/' })
- //        setInterval(window.location.href='./index.html',1)
- //      },
- //      error: function(user, error) {
- //        alert("注册失败: " + error.code + " " + error.message);
- //      }
- //    });
-	//  }
- //  })
+ 
 });

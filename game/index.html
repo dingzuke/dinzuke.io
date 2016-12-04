@@ -19,12 +19,24 @@ a:hover{color:#3071A9}
 .demo-name{background-color: #428BCA;color: #fff;display: inline-block;padding: 0 20px;}
 .demo-name:hover{color: #fff;}
 .demo-title{height:0;overflow:hidden}
-.demo-container{clear: both;padding:30px 20px;text-align:left;margin:0 auto;line-height: 18px;}
+.demo-container{clear: both;padding:0;text-align:left;margin:0 auto;line-height: 18px;}
 .demo h2{font-size: 15px;padding-bottom: 6px;margin-bottom: 20px;border-bottom: solid 1px #ddd;}
 .top-title{margin: 6px auto;width: 116px;}
 .top3{margin: 0 20px;}
 .top3>ul>li{line-height:150%;}
 .rank-date{font-size: 8px;display: inline-block;float: right;}
+.exit>button{width: 120px;
+    height: 30px;
+    border: #666 solid 2px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 4px;
+    right: 12%;
+    margin-left: -60px;
+    color: #333;
+    cursor: pointer;}
 </style>
 </head>
 <body>
@@ -52,19 +64,16 @@ a:hover{color:#3071A9}
                     </div>
                 </div>
                 <div class="content" id="content">0</div>
-                <div class="footer">
+                <div class="footer continue ">
                     <button>继 续</button>
                 </div>
+                <div class="exit"><button>退 出</button></div>
             </div>
             <canvas id="game-box"></canvas>
         </div>
     </body>
 </html>
-      <style>/*
- build time: Sep 08,2013 21:59
- author: jiejie.zhuo
- email: zhuo-jiejie@foxmail.com
- */
+      <style>
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -142,27 +151,14 @@ body {
     /*border-top: #666 solid 2px; */
 }
 
-#modal .footer button {
-    width: 120px;
-    height: 30px;
-    border: #666 solid 2px;
-    border-radius: 15px;
-    font-size: 15px;
-    font-weight: bold;
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    margin-left: -60px;
-    color: #333;
-    cursor: pointer;
-}</style>
+#modal .footer button {width: 120px;height: 30px;border: #666 solid 2px;border-radius: 15px;font-size: 15px;font-weight: bold;position: absolute;bottom: 4px;left: 12%;color: #333;cursor: pointer;}</style>
 
 
 <script src="js/bmob-min.js"></script>
 <script type=text/javascript src="js/jquery.cookie.js"></script> 
 <script type="text/javascript">
    // 检测cookie 没登录跳转登录页面
-    if(!$.cookie('game_user')){
+    if(!$.cookie('game_user') || $.cookie('game_user') === 'null'){
         window.location.href = 'login.html'
     }else{
         // alert($.cookie('game_user'))
@@ -823,9 +819,14 @@ body {
                     }
                 }
             }
-
-            $("#modal").on("click", "button", function () {
+            // 继续
+            $("#modal").on("click", ".continue", function () {
                 game.start();
+            });
+            // 退出
+            $("#modal").on("click", ".exit", function () {
+                $.cookie('game_user',null)
+                window.location.href = './login.html'
             });
         }
     });
